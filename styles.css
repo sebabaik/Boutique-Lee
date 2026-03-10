@@ -887,11 +887,19 @@ footer {
 
 @media (max-width: 500px) {
   .grilla {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 24px;
   }
   .tarjeta-img {
     height: 220px;
     font-size: 3rem;
   }
+  .tarjeta-img .slide img {
+    object-fit: cover;
+  }
+}
+
+@media (hover: none) {
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
 }
