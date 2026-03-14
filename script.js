@@ -196,3 +196,12 @@ for (let i = 0; i < 22; i++) {
 }
 
 particleContainer.appendChild(fragment);
+
+
+document.querySelectorAll('.tarjeta-img img').forEach(img => {
+  if (img.complete) {
+    img.classList.add('cargada');
+  } else {
+    img.addEventListener('load', () => img.classList.add('cargada'));
+  }
+});
