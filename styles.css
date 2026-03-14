@@ -434,7 +434,7 @@ nav {
 
 /* Imagen */
 .tarjeta-img {
-  height: 190px;
+  height: 240px;
   position: relative;
   overflow: hidden;
   cursor: zoom-in;
@@ -891,11 +891,12 @@ footer {
     gap: 24px;
   }
   .tarjeta-img {
-    height: 220px;
+    height: 180px;
     font-size: 3rem;
   }
   .tarjeta-img .slide img {
-    object-fit: cover;
+    object-fit: contain;
+    background: var(--beige-med);
   }
 }
 
