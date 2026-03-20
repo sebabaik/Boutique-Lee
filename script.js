@@ -196,5 +196,3 @@ for (let i = 0; i < 22; i++) {
 }
 
 particleContainer.appendChild(fragment);
-
-

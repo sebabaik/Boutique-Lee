@@ -443,7 +443,6 @@ nav {
 .tarjeta-img .slides {
   display: flex;
   height: 100%;
-  width: 100%;
   transition: transform 0.35s ease;
 }
 
@@ -456,14 +455,12 @@ nav {
   justify-content: center;
   font-size: 4.5rem;
   flex-shrink: 0;
-  overflow: hidden;
 }
 
 .tarjeta-img .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain;
   background: var(--beige-med);
   transition: transform 0.4s ease;
 }
@@ -887,13 +884,19 @@ footer {
   .stats { flex-wrap: wrap; }
   .stat { min-width: 140px; }
 }
+
 @media (max-width: 500px) {
   .grilla {
     grid-template-columns: 1fr;
     gap: 24px;
   }
   .tarjeta-img {
-    height: 320px;
+    height: 180px;
+    font-size: 3rem;
+  }
+  .tarjeta-img .slide img {
+    object-fit: contain;
+    background: var(--beige-med);
   }
 }
 
@@ -901,5 +904,3 @@ footer {
   .cursor, .cursor-ring { display: none; }
   body { cursor: auto; }
 }
-
-
