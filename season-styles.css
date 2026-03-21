@@ -1,0 +1,145 @@
+/* ============================================================
+   BOUTIQUE LEE — Selector de Temporada + Tabs
+   Reemplaza el contenido de season-styles.css
+   ============================================================ */
+
+/* ── SELECTOR DE TEMPORADA ── */
+
+.season-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+
+.season-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  border-radius: 8px;
+  border: 1.5px solid var(--beige-med);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+  color: var(--gris);
+}
+
+.season-btn-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.season-btn:hover:not(.activa) {
+  border-color: rgba(200,216,232,0.4);
+  color: var(--dorado-cl);
+  background: rgba(200,216,232,0.05);
+}
+
+#btn-todo.activa {
+  background: var(--dorado);
+  border-color: var(--dorado);
+  color: var(--cafe);
+}
+
+#btn-verano.activa {
+  background: transparent;
+  border-color: #c8943a;
+  color: #d4a84b;
+  box-shadow: inset 0 0 0 1px #c8943a, 0 0 18px rgba(200,148,58,0.15);
+}
+
+#btn-invierno.activa {
+  background: transparent;
+  border-color: var(--dorado);
+  color: var(--dorado);
+  box-shadow: inset 0 0 0 1px var(--dorado), 0 0 18px rgba(200,216,232,0.12);
+}
+
+/* ── TABS ── */
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--beige-med);
+}
+
+.tab {
+  background: none;
+  border: 1px solid rgba(200,216,232,0.18);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7a96ae;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.tab:hover:not(.activo) {
+  border-color: rgba(200,216,232,0.45);
+  color: var(--dorado-cl);
+  background: rgba(200,216,232,0.04);
+  transform: translateY(-1px);
+}
+
+.tab.activo {
+  background: rgba(200,216,232,0.12);
+  border-color: var(--dorado);
+  color: var(--dorado);
+  font-weight: 600;
+}
+
+/* ── NAV-CATS ── */
+
+.nav-cats button {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9ab0c4;
+  padding: 7px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+
+.nav-cats button:hover,
+.nav-cats button.activa {
+  background: rgba(200,216,232,0.12);
+  color: var(--dorado);
+}
+
+/* ── RESPONSIVO ── */
+
+@media (max-width: 700px) {
+  .season-selector { width: 100%; }
+  .season-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .season-btn-icon { display: none; }
+}

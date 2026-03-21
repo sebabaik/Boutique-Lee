@@ -1,12 +1,13 @@
 /* ============================================================
    BOUTIQUE LEE — Script Principal
    1. Cursor personalizado
-   2. Filtro de categorías
-   3. Animación de entrada (scroll)
-   4. Slider de imágenes
-   5. Zoom modal
-   6. Ripple effect
-   7. Partículas hero
+   2. Sistema de temporadas (Todo / Verano / Invierno)
+   3. Filtro de categorías (dinámico según temporada)
+   4. Animación de entrada (scroll)
+   5. Slider de imágenes
+   6. Zoom modal
+   7. Ripple effect
+   8. Partículas hero
    ============================================================ */
 
 
@@ -33,30 +34,181 @@ document.addEventListener('mousemove', (e) => {
 })();
 
 
-/* ── 2. FILTRO DE CATEGORÍAS ── */
+/* ── 2. SISTEMA DE TEMPORADAS ── */
 
-function filtrar(categoria, botonClickeado) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('activo'));
-  document.querySelectorAll('.nav-cats button').forEach(b => b.classList.remove('activa'));
+// Definición de cada temporada: qué categorías muestra y su etiqueta
+const TEMPORADAS = {
+  todo: {
+    eyebrow: 'Toda la Colección 2026',
+    tabs: null, // null = mostrar todas las categorías que existan
+  },
+  verano: {
+    eyebrow: '☀ Temporada Verano 2026',
+    tabs: [
+      { cat: 'todo',       label: '✦ Todas',         icon: '' },
+      { cat: 'remeras',    label: 'Remeras',          icon: '👕' },
+      { cat: 'vestidos',   label: 'Vestidos',         icon: '👗' },
+      { cat: 'blusas',     label: 'Blusas',           icon: '👚' },
+      { cat: 'pantalones', label: 'Pantalones',       icon: '👖' },
+      { cat: 'polleras',   label: 'Polleras',         icon: '🩴' },
+      { cat: 'camisas',    label: 'Camisas',          icon: '👔' },
+      { cat: 'blazers',    label: 'Blazers y Sacos',  icon: '👔' },
+    ]
+  },
+  invierno: {
+    eyebrow: '❄ Temporada Invierno 2026',
+    tabs: [
+      { cat: 'todo',        label: '✦ Todas',          icon: '' },
+      { cat: 'remeras-ml',  label: 'Remeras ML',       icon: '👕' },
+      { cat: 'buzos',       label: 'Buzos',            icon: '🧥' },
+      { cat: 'sacos',       label: 'Sacos de paño',    icon: '🧥' },
+      { cat: 'joggings',    label: 'Joggings',         icon: '🩳' },
+      { cat: 'camperas',    label: 'Camperas',         icon: '🧥' },
+      { cat: 'chalecos',    label: 'Chalecos',         icon: '🦺' },
+      { cat: 'ponchos',     label: 'Ponchos',          icon: '🧣' },
+    ]
+  }
+};
 
-  if (botonClickeado) {
-    botonClickeado.classList.add('activo');
-    botonClickeado.classList.add('activa');
+let temporadaActual = 'invierno'; // Temporada por defecto al cargar
+let categoriaActual = 'todo';
+
+function cambiarTemporada(temporada, boton) {
+  temporadaActual = temporada;
+  categoriaActual = 'todo';
+
+  // Actualizar botones de temporada
+  document.querySelectorAll('.season-btn').forEach(b => b.classList.remove('activa'));
+  if (boton) boton.classList.add('activa');
+
+  // Actualizar eyebrow
+  const eyebrow = document.getElementById('cat-eyebrow');
+  if (eyebrow) eyebrow.textContent = TEMPORADAS[temporada].eyebrow;
+
+  // Regenerar tabs
+  renderTabs(temporada);
+
+  // Actualizar nav
+  renderNavCats(temporada);
+
+  // Aplicar filtro de visibilidad
+  aplicarFiltro(temporada, 'todo');
+}
+
+function renderTabs(temporada) {
+  const container = document.getElementById('tabs-dinamicos');
+  if (!container) return;
+  container.innerHTML = '';
+
+  let tabsData;
+
+  if (temporada === 'todo') {
+    // Recopilar todas las categorías únicas existentes en el HTML
+    const cats = new Set();
+    document.querySelectorAll('.tarjeta[data-cat]').forEach(t => cats.add(t.dataset.cat));
+    tabsData = [{ cat: 'todo', label: '✦ Todas', icon: '' }];
+    cats.forEach(cat => {
+      const sep = document.querySelector(`.cat-separador[data-sep="${cat}"]`);
+      const label = sep ? sep.textContent.trim().replace(/^[^\s]+\s/, '') : cat;
+      tabsData.push({ cat, label, icon: '' });
+    });
+  } else {
+    tabsData = TEMPORADAS[temporada].tabs;
   }
 
-  const esTodo = categoria === 'todo';
-
-  document.querySelectorAll('.tarjeta').forEach(tarjeta => {
-    tarjeta.style.display = (esTodo || tarjeta.dataset.cat === categoria) ? '' : 'none';
-  });
-
-  document.querySelectorAll('.cat-separador').forEach(sep => {
-    sep.style.display = esTodo ? '' : 'none';
+  tabsData.forEach(({ cat, label, icon }) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (cat === 'todo' ? ' activo' : '');
+    btn.textContent = icon ? `${icon} ${label}` : label;
+    btn.onclick = () => filtrarCategoria(cat, btn);
+    container.appendChild(btn);
   });
 }
 
+function renderNavCats(temporada) {
+  const nav = document.getElementById('nav-cats-dynamic');
+  if (!nav) return;
+  nav.innerHTML = '';
 
-/* ── 3. ANIMACIÓN DE ENTRADA AL SCROLL ── */
+  let tabsData;
+  if (temporada === 'todo') {
+    const cats = new Set();
+    document.querySelectorAll('.tarjeta[data-cat]').forEach(t => cats.add(t.dataset.cat));
+    tabsData = [{ cat: 'todo', label: 'Todo' }];
+    cats.forEach(cat => {
+      const sep = document.querySelector(`.cat-separador[data-sep="${cat}"]`);
+      const label = sep ? sep.textContent.trim().replace(/^[^\s]+\s/, '') : cat;
+      tabsData.push({ cat, label });
+    });
+  } else {
+    tabsData = TEMPORADAS[temporada].tabs;
+  }
+
+  tabsData.forEach(({ cat, label }) => {
+    const btn = document.createElement('button');
+    btn.className = cat === categoriaActual ? 'activa' : '';
+    btn.textContent = label;
+    btn.onclick = () => filtrarCategoria(cat, null);
+    nav.appendChild(btn);
+  });
+}
+
+function aplicarFiltro(temporada, categoria) {
+  const esTodo = categoria === 'todo';
+
+  document.querySelectorAll('.tarjeta').forEach(tarjeta => {
+    const tTemp = tarjeta.dataset.temporada;
+    const tCat  = tarjeta.dataset.cat;
+
+    let visible = false;
+    if (temporada === 'todo') {
+      visible = esTodo || tCat === categoria;
+    } else {
+      const enTemporada = tTemp === temporada;
+      visible = enTemporada && (esTodo || tCat === categoria);
+    }
+    tarjeta.style.display = visible ? '' : 'none';
+  });
+
+  // Separadores de categoría
+  document.querySelectorAll('.cat-separador').forEach(sep => {
+    const sTemp = sep.dataset.temporada;
+    const sCat  = sep.dataset.sep;
+
+    let visible = false;
+    if (temporada === 'todo') {
+      visible = esTodo || sCat === categoria;
+    } else {
+      visible = sTemp === temporada && (esTodo || sCat === categoria);
+    }
+    sep.style.display = visible ? '' : 'none';
+  });
+}
+
+/* ── 3. FILTRO DE CATEGORÍAS ── */
+
+function filtrarCategoria(categoria, botonClickeado) {
+  categoriaActual = categoria;
+
+  // Actualizar tabs activos
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('activo'));
+  if (botonClickeado) botonClickeado.classList.add('activo');
+
+  // Actualizar nav-cats
+  document.querySelectorAll('#nav-cats-dynamic button').forEach(b => {
+    b.classList.toggle('activa', b.textContent.trim() === (botonClickeado?.textContent?.trim() || ''));
+  });
+
+  aplicarFiltro(temporadaActual, categoria);
+}
+
+// Alias para compatibilidad con nav-cats que aún usan onclick="filtrar(...)"
+function filtrar(categoria, boton) {
+  filtrarCategoria(categoria, boton);
+}
+
+
+/* ── 4. ANIMACIÓN DE ENTRADA AL SCROLL ── */
 
 const observador = new IntersectionObserver((entradas) => {
   entradas.forEach((entrada, indice) => {
@@ -68,11 +220,11 @@ const observador = new IntersectionObserver((entradas) => {
 
 document.querySelectorAll('.fade-in').forEach(el => {
   observador.observe(el);
-  el.classList.add('visible'); // forzar visibilidad inmediata también
+  el.classList.add('visible');
 });
 
 
-/* ── 4. SLIDER DE IMÁGENES ── */
+/* ── 5. SLIDER DE IMÁGENES ── */
 
 document.querySelectorAll('.tarjeta-img').forEach(container => {
   const slides = container.querySelector('.slides');
@@ -87,7 +239,6 @@ document.querySelectorAll('.tarjeta-img').forEach(container => {
   let current    = 0;
 
   if (total > 1) container.classList.add('multi');
-  // Eliminar flechas si hay una sola imagen
   if (total <= 1) {
     container.querySelectorAll('.arrow').forEach(a => a.remove());
     return;
@@ -106,7 +257,7 @@ document.querySelectorAll('.tarjeta-img').forEach(container => {
 });
 
 
-/* ── 5. ZOOM MODAL ── */
+/* ── 6. ZOOM MODAL ── */
 
 const modal    = document.getElementById('zoomModal');
 const zoomImg  = document.getElementById('zoomImg');
@@ -165,7 +316,7 @@ modal.addEventListener('click', (e) => { if (e.target === modal) cerrarZoom(); }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrarZoom(); });
 
 
-/* ── 6. RIPPLE EFFECT EN TARJETAS ── */
+/* ── 7. RIPPLE EFFECT EN TARJETAS ── */
 
 document.querySelectorAll('.tarjeta').forEach(tarjeta => {
   tarjeta.addEventListener('click', (e) => {
@@ -180,7 +331,7 @@ document.querySelectorAll('.tarjeta').forEach(tarjeta => {
 });
 
 
-/* ── 7. PARTÍCULAS HERO ── */
+/* ── 8. PARTÍCULAS HERO ── */
 
 const particleContainer = document.getElementById('particles');
 const fragment = document.createDocumentFragment();
@@ -196,3 +347,11 @@ for (let i = 0; i < 22; i++) {
 }
 
 particleContainer.appendChild(fragment);
+
+
+/* ── INICIALIZACIÓN ── */
+// Activar temporada por defecto al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  const btnDefault = document.getElementById('btn-invierno');
+  cambiarTemporada('invierno', btnDefault);
+});
