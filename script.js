@@ -71,7 +71,7 @@ const TEMPORADAS = {
   }
 };
 
-let temporadaActual = 'invierno'; // Temporada por defecto al cargar
+let temporadaActual = 'todo'; // Temporada por defecto al cargar
 let categoriaActual = 'todo';
 
 function cambiarTemporada(temporada, boton) {
@@ -353,6 +353,6 @@ particleContainer.appendChild(fragment);
 /* ── INICIALIZACIÓN ── */
 // Activar temporada por defecto al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-  const btnDefault = document.getElementById('btn-invierno');
-  cambiarTemporada('invierno', btnDefault);
+  const btnDefault = document.getElementById('btn-todo');
+  cambiarTemporada('todo', btnDefault);
 });
