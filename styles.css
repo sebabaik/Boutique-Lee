@@ -85,6 +85,7 @@ body {
   font-size: 0.95rem;
   letter-spacing: 3px;
   text-transform: uppercase;
+  padding-top: calc(9px + env(safe-area-inset-top));
 }
 
 
@@ -96,7 +97,7 @@ nav {
   z-index: 900;
   background: var(--blanco);
   border-bottom: 1px solid var(--beige-med);
-  padding: 0 50px;
+  padding: env(safe-area-inset-top) 50px 0 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
