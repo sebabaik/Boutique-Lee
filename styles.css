@@ -441,42 +441,38 @@ nav {
 }
 
 .tarjeta-img .slides {
-  display: -webkit-flex;
-  display: flex;
+  position: relative;
   height: 100%;
   width: 100%;
-  transition: transform 0.35s ease;
-  -webkit-transition: transform 0.35s ease;
-  will-change: transform;
 }
 
 .tarjeta-img .slide {
-  min-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: var(--beige-med);
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
   font-size: 4.5rem;
-  -webkit-flex-shrink: 0;
-  flex-shrink: 0;
-  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.tarjeta-img .slide.activo {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .tarjeta-img .slide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  -webkit-object-fit: contain;
   background: var(--beige-med);
-  transition: transform 0.4s ease;
   display: block;
-  position: relative;
-  z-index: 1;
 }
 
 .tarjeta-img .slide img:hover { transform: scale(1.05); }

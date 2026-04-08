@@ -229,42 +229,41 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 function initSliders() {
   document.querySelectorAll('.tarjeta-img').forEach(container => {
-    const slides = container.querySelector('.slides');
-
-    if (!slides) {
+    const slidesContainer = container.querySelector('.slides');
+    if (!slidesContainer) {
       container.querySelectorAll('.arrow').forEach(a => a.remove());
       return;
     }
 
+    const slideEls = container.querySelectorAll('.slide');
     const dotsList = container.querySelectorAll('.dot');
-    const total    = container.querySelectorAll('.slide').length;
+    const total    = slideEls.length;
     let current    = 0;
 
-    if (total > 1) container.classList.add('multi');
-    if (total <= 1) {
+    // Mostrar primer slide
+    slideEls.forEach((s, i) => s.classList.toggle('activo', i === 0));
+
+    if (total > 1) {
+      container.classList.add('multi');
+    } else {
       container.querySelectorAll('.arrow').forEach(a => a.remove());
       return;
     }
 
-    // Forzar que el primer slide sea visible en iOS
-    slides.style.transform = 'translateX(0%)';
-    slides.style.webkitTransform = 'translateX(0%)';
-
     function goTo(n) {
+      slideEls[current].classList.remove('activo');
       current = (n + total) % total;
-      slides.style.transform = `translateX(-${current * 100}%)`;
-      slides.style.webkitTransform = `translateX(-${current * 100}%)`;
+      slideEls[current].classList.add('activo');
       dotsList.forEach((d, i) => d.classList.toggle('activo', i === current));
     }
 
     const nextBtn = container.querySelector('.next');
     const prevBtn = container.querySelector('.prev');
-    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
-    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
   });
 }
 
-// Inicializar slider tanto en DOMContentLoaded como en load (para iOS)
 document.addEventListener('DOMContentLoaded', initSliders);
 window.addEventListener('load', initSliders);
 
