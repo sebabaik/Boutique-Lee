@@ -227,35 +227,46 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 /* ── 5. SLIDER DE IMÁGENES ── */
 
-document.querySelectorAll('.tarjeta-img').forEach(container => {
-  const slides = container.querySelector('.slides');
+function initSliders() {
+  document.querySelectorAll('.tarjeta-img').forEach(container => {
+    const slides = container.querySelector('.slides');
 
-  if (!slides) {
-    container.querySelectorAll('.arrow').forEach(a => a.remove());
-    return;
-  }
+    if (!slides) {
+      container.querySelectorAll('.arrow').forEach(a => a.remove());
+      return;
+    }
 
-  const dotsList = container.querySelectorAll('.dot');
-  const total    = container.querySelectorAll('.slide').length;
-  let current    = 0;
+    const dotsList = container.querySelectorAll('.dot');
+    const total    = container.querySelectorAll('.slide').length;
+    let current    = 0;
 
-  if (total > 1) container.classList.add('multi');
-  if (total <= 1) {
-    container.querySelectorAll('.arrow').forEach(a => a.remove());
-    return;
-  }
+    if (total > 1) container.classList.add('multi');
+    if (total <= 1) {
+      container.querySelectorAll('.arrow').forEach(a => a.remove());
+      return;
+    }
 
-  function goTo(n) {
-    current = (n + total) % total;
-    slides.style.transform = `translateX(-${current * 100}%)`;
-    dotsList.forEach((d, i) => d.classList.toggle('activo', i === current));
-  }
+    // Forzar que el primer slide sea visible en iOS
+    slides.style.transform = 'translateX(0%)';
+    slides.style.webkitTransform = 'translateX(0%)';
 
-  const nextBtn = container.querySelector('.next');
-  const prevBtn = container.querySelector('.prev');
-  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
-  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
-});
+    function goTo(n) {
+      current = (n + total) % total;
+      slides.style.transform = `translateX(-${current * 100}%)`;
+      slides.style.webkitTransform = `translateX(-${current * 100}%)`;
+      dotsList.forEach((d, i) => d.classList.toggle('activo', i === current));
+    }
+
+    const nextBtn = container.querySelector('.next');
+    const prevBtn = container.querySelector('.prev');
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  });
+}
+
+// Inicializar slider tanto en DOMContentLoaded como en load (para iOS)
+document.addEventListener('DOMContentLoaded', initSliders);
+window.addEventListener('load', initSliders);
 
 
 /* ── 6. ZOOM MODAL ── */
