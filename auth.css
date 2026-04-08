@@ -768,3 +768,14 @@
   .auth-modal-card { padding: 28px 16px; }
   .fav-panel-drawer { width: 100vw; }
 }
+
+@media (max-width: 600px) {
+  .user-label { display: none !important; }
+  #user-btn { padding: 7px 10px; }
+  #user-menu {
+    right: 8px !important;
+    left: auto !important;
+    min-width: 200px;
+    max-width: calc(100vw - 16px);
+  }
+}
