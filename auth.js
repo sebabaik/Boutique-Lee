@@ -251,8 +251,11 @@ function showUserMenu() {
 
   const btn = document.getElementById('user-btn');
   const rect = btn.getBoundingClientRect();
-  menu.style.top  = (rect.bottom + 8) + 'px';
-  menu.style.right = (window.innerWidth - rect.right) + 'px';
+  menu.style.top = (rect.bottom + 8) + 'px';
+  const rightVal = window.innerWidth - rect.right;
+  menu.style.right = Math.max(8, rightVal) + 'px';
+  menu.style.left = 'auto';
+  menu.style.maxWidth = (window.innerWidth - 16) + 'px';
 
   setTimeout(() => {
     document.addEventListener('click', function handler(e) {
