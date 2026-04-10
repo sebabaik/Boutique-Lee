@@ -85,7 +85,6 @@ body {
   font-size: 0.95rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding-top: calc(9px + env(safe-area-inset-top));
 }
 
 
@@ -97,7 +96,7 @@ nav {
   z-index: 900;
   background: var(--blanco);
   border-bottom: 1px solid var(--beige-med);
-  padding: env(safe-area-inset-top) 50px 0 50px;
+  padding: 0 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -445,7 +444,6 @@ nav {
   position: relative;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 .tarjeta-img .slide {
@@ -460,14 +458,12 @@ nav {
   justify-content: center;
   font-size: 4.5rem;
   opacity: 0;
-  visibility: hidden;
   transition: opacity 0.35s ease;
   pointer-events: none;
 }
 
 .tarjeta-img .slide.activo {
   opacity: 1;
-  visibility: visible;
   pointer-events: auto;
 }
 
