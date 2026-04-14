@@ -65,7 +65,7 @@ const TEMPORADAS = {
       { cat: 'joggings',    label: 'Joggings',         icon: '🩳' },
       { cat: 'camperas',    label: 'Camperas',         icon: '🧥' },
       { cat: 'chalecos',    label: 'Chalecos',         icon: '🦺' },
-      { cat: 'ponchos',     label: 'Ponchos',          icon: '🧣' },
+      { cat: 'ruana',     label: 'ruana',          icon: '🧣' },
       { cat: 'Falsos conjuntos',     label: 'Falsos conjuntos',          icon: '👘' }
     ]
   }
