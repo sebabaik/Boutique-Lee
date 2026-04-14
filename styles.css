@@ -544,7 +544,7 @@ nav {
   body { cursor: auto; }
 
   .lupa-overlay {
-    opacity: 1;
+    opacity: 0;
     background: rgba(11,22,34,0.08);
   }
 
