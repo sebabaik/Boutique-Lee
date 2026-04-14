@@ -544,8 +544,9 @@ nav {
   body { cursor: auto; }
 
   .lupa-overlay {
-    opacity: 0;
-    background: rgba(11,22,34,0.08);
+    opacity: 1;
+    background: transparent;
+    backdrop-filter: none;
   }
 
   .lupa-ico { display: none; }
