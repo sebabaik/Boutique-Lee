@@ -545,16 +545,10 @@ nav {
 
   .lupa-overlay {
     opacity: 1;
-    background: rgba(11,22,34,0.25);
+    background: rgba(11,22,34,0.08);
   }
-}
 
-
-
-.lupa-ico {
-  font-size: 2.2rem;
-  color: rgba(255,255,255,0.85);
-  pointer-events: none;
+  .lupa-ico { display: none; }
 }
 
 /* Body de tarjeta */
