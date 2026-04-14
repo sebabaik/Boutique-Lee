@@ -305,6 +305,7 @@ function cerrarZoom() { modal.classList.remove('abierto'); }
 
 document.querySelectorAll('.lupa-overlay').forEach(lupa => {
   lupa.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
     abrirZoom(lupa.closest('.tarjeta-img'));
   });

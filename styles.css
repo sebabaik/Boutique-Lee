@@ -537,8 +537,19 @@ nav {
   z-index: 4;
   backdrop-filter: blur(2px);
 }
-
 .tarjeta:hover .lupa-overlay { opacity: 1; }
+
+@media (hover: none) {
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+
+  .lupa-overlay {
+    opacity: 1;
+    background: rgba(11,22,34,0.25);
+  }
+}
+
+
 
 .lupa-ico {
   font-size: 2.2rem;
