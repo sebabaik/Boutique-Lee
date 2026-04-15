@@ -876,7 +876,7 @@ footer {
 
 .zoom-nav:hover { background: rgba(255,255,255,0.3); }
 .zoom-nav.prev  { left: 20px; }
-.zoom-nav.next  { right: 80px; }
+.zoom-nav.next  { right: 20px; }
 
 
 /* ── 11. RESPONSIVO ── */
