@@ -729,14 +729,9 @@ nav {
   height: 22px;
   border-radius: 50%;
   border: 1.5px solid rgba(255,255,255,0.3);
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.2s;
+  cursor: default;
 }
 
-.color-dot:hover {
-  transform: scale(1.5);
-  box-shadow: 0 0 6px rgba(200,216,232,0.5);
-}
 
 /* Overrides de colores específicos */
 .color-dot[title="Blanco"] {

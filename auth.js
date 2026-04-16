@@ -371,6 +371,29 @@ function closeFavoritesPanel() {
   document.getElementById('favorites-panel')?.classList.remove('open');
 }
 
+
+function scrollToProduct(productId) {
+  const btn = document.querySelector(`.heart-btn[data-product-id="${productId}"]`);
+  if (!btn) return;
+  const tarjeta = btn.closest('.tarjeta');
+  if (!tarjeta) return;
+
+  // Si la tarjeta está oculta, mostrar todas y resetear filtro
+  if (tarjeta.style.display === 'none') {
+    const btnTodo = document.getElementById('btn-todo');
+    if (btnTodo) cambiarTemporada('todo', btnTodo);
+  }
+
+  setTimeout(() => {
+    tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    tarjeta.style.outline = '2px solid #c8d8e8';
+    tarjeta.style.outlineOffset = '4px';
+    setTimeout(() => {
+      tarjeta.style.outline = '';
+      tarjeta.style.outlineOffset = '';
+    }, 2000);
+  }, 300);
+}
 function renderFavoritesPanel() {
   const body = document.getElementById('fav-panel-body');
   if (!body) return;
@@ -389,19 +412,24 @@ function renderFavoritesPanel() {
   favorites.forEach(id => {
     const data = favoritesData[id] || {};
     const item = document.createElement('div');
-    item.className = 'fav-item';
-    item.innerHTML = `
-      <div class="fav-item-img">
-        ${data.img ? `<img src="${data.img}" alt="${data.name}" onerror="this.style.display='none'">` : '<div class="fav-item-placeholder">👗</div>'}
-      </div>
-      <div class="fav-item-info">
-        <div class="fav-item-cat">${data.cat || ''}</div>
-        <div class="fav-item-name">${data.name || id}</div>
-        <div class="fav-item-talles">${data.talles || ''}</div>
-      </div>
-      <button class="fav-item-remove" onclick="toggleFavorite('${id}', ${JSON.stringify(data).replace(/"/g, '&quot;')})">✕</button>
-    `;
-    body.appendChild(item);
+item.className = 'fav-item';
+item.style.cursor = 'pointer';
+item.innerHTML = `
+  <div class="fav-item-img">
+    ${data.img ? `<img src="${data.img}" alt="${data.name}" onerror="this.style.display='none'">` : '<div class="fav-item-placeholder">👗</div>'}
+  </div>
+  <div class="fav-item-info">
+    <div class="fav-item-cat">${data.cat || ''}</div>
+    <div class="fav-item-name">${data.name || id}</div>
+    <div class="fav-item-talles">${data.talles || ''}</div>
+  </div>
+  <button class="fav-item-remove" onclick="event.stopPropagation();toggleFavorite('${id}', ${JSON.stringify(data).replace(/"/g, '&quot;')})">✕</button>
+`;
+item.addEventListener('click', () => {
+  closeFavoritesPanel();
+  scrollToProduct(id);
+});
+body.appendChild(item);
   });
 
   if (!currentUser) {

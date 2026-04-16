@@ -566,7 +566,29 @@
   to   { opacity: 1; transform: none; }
 }
 
-.fav-item:hover { border-color: rgba(200,216,232,0.25); }
+.fav-item {
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.fav-item:hover {
+  border-color: rgba(200,216,232,0.35);
+  background: rgba(200,216,232,0.09);
+  transform: translateX(-3px);
+}
+
+.fav-item:hover .fav-item-img img {
+  filter: brightness(1.12);
+  transform: scale(1.04);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.fav-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s, transform 0.3s;
+}
 
 .fav-item-img {
   width: 56px;
