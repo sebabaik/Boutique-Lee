@@ -62,7 +62,7 @@ const TEMPORADAS = {
       { cat: 'remeras-ml',  label: 'Remeras ML',       icon: '👕' },
       { cat: 'buzos',       label: 'Buzos',            icon: '🧥' },
       { cat: 'sacos',       label: 'Sacos de paño',    icon: '🧥' },
-      { cat: 'joggings',    label: 'Joggings',         icon: '🩳' },
+      { cat: 'pantalones',    label: 'pantalones',         icon: '🩳' },
       { cat: 'camperas',    label: 'Camperas',         icon: '🧥' },
       { cat: 'chalecos',    label: 'Chalecos',         icon: '🦺' },
       { cat: 'ruana',     label: 'ruana',          icon: '🧣' },
