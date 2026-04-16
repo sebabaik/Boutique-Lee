@@ -90,22 +90,115 @@ body {
 
 /* ── 4. NAVEGACIÓN ── */
 
+/* ── 4. NAVEGACIÓN ── */
+
 nav {
   position: sticky;
   top: 0;
   z-index: 900;
   background: var(--blanco);
   border-bottom: 1px solid var(--beige-med);
-  padding: 0 50px;
+  padding: 0 20px 0 50px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 68px;
+  gap: 12px;
+}
+
+/* Wrapper con flechas */
+.nav-cats-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: 6px;
+}
+
+.nav-scroll-btn {
+  background: none;
+  border: 1px solid var(--beige-med);
+  color: var(--dorado);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+
+.nav-scroll-btn:hover {
+  background: var(--beige);
+  border-color: var(--dorado);
 }
 
 .nav-cats {
   display: flex;
   gap: 4px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-cats::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-cats button {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #e8e0d5;
+  padding: 7px 13px;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-cats button:hover,
+.nav-cats button.activa {
+  background: var(--beige);
+  color: #e8e0d5;
+}
+
+/* Botón de Facebook siempre al final */
+.nav-fb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: #1877f2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.nav-fb:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.nav-fb svg {
+  width: 15px;
+  height: 15px;
+  fill: white;
 }
 
 .nav-cats button {

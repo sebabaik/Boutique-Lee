@@ -360,6 +360,14 @@ for (let i = 0; i < 22; i++) {
 
 particleContainer.appendChild(fragment);
 
+/* ── FLECHAS DEL NAV ── */
+const navCats = document.getElementById('nav-cats-dynamic');
+document.getElementById('nav-prev').addEventListener('click', () => {
+  navCats.scrollBy({ left: -160, behavior: 'smooth' });
+});
+document.getElementById('nav-next').addEventListener('click', () => {
+  navCats.scrollBy({ left: 160, behavior: 'smooth' });
+});
 
 /* ── INICIALIZACIÓN ── */
 // Activar temporada por defecto al cargar la página
