@@ -53,6 +53,7 @@ const TEMPORADAS = {
       { cat: 'polleras',   label: 'Polleras',         icon: '🩴' },
       { cat: 'camisas',    label: 'Camisas',          icon: '👔' },
       { cat: 'blazers',    label: 'Blazers y Sacos',  icon: '👔' },
+      { cat: 'fiesta',     label: 'Fiesta',           icon: '✨' },
     ]
   },
   invierno: {
@@ -67,7 +68,8 @@ const TEMPORADAS = {
       { cat: 'camperas',    label: 'Camperas',         icon: '🧥' },
       { cat: 'chalecos',    label: 'Chalecos',         icon: '🦺' },
       { cat: 'ruana',     label: 'ruana',          icon: '🧣' },
-      { cat: 'Falsos conjuntos',     label: 'Falsos conjuntos',          icon: '👘' }
+      { cat: 'Falsos conjuntos',     label: 'Falsos conjuntos',          icon: '👘' },
+      { cat: 'fiesta',     label: 'Fiesta',           icon: '✨' },
     ]
   }
 };
