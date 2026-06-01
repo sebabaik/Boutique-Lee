@@ -69,7 +69,6 @@ const TEMPORADAS = {
       { cat: 'chalecos',    label: 'Chalecos',         icon: '🦺' },
       { cat: 'ruana',     label: 'ruana',          icon: '🧣' },
       { cat: 'Falsos conjuntos',     label: 'Falsos conjuntos',          icon: '👘' },
-      { cat: 'fiesta',     label: 'Fiesta',           icon: '✨' },
     ]
   }
 };
